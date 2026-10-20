@@ -1,3 +1,8 @@
+[![release](https://github.com/humbertodias/lupi-asteroids/actions/workflows/release.yml/badge.svg)](https://github.com/humbertodias/lupi-asteroids/actions/workflows/release.yml)
+[![pages](https://github.com/humbertodias/lupi-asteroids/actions/workflows/pages.yml/badge.svg)](https://github.com/humbertodias/lupi-asteroids/actions/workflows/pages.yml)
+![GitHub all releases](https://img.shields.io/github/downloads/humbertodias/lupi-asteroids/total)
+
+
 # Asteroids
 
 Asteroids para o console Lupi. A nave gira, acelera e atira. Asteroides grandes se partem. Cada onda recria o campo e acrescenta mais um asteroide grande. Três vidas.
