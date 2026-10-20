@@ -1,6 +1,6 @@
 # Asteroids
 
-Port de Asteroids para o console Lupi. A nave gira, acelera e atira. Asteroides grandes se partem. Cada onda recria o campo e acrescenta mais um asteroide grande. Três vidas.
+Asteroids para o console Lupi. A nave gira, acelera e atira. Asteroides grandes se partem. Cada onda recria o campo e acrescenta mais um asteroide grande. Três vidas.
 
 Versões: [web](https://humbertodias.github.io/lupi-asteroids/) | [desktop](https://github.com/humbertodias/lupi-asteroids/releases/latest/download/asteroids.lupi)
 
