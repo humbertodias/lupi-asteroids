@@ -8,8 +8,7 @@ Versões: [web](https://humbertodias.github.io/lupi-asteroids/) | [desktop](http
 lupinho asteroids.lupi
 ```
 
-<img width="592" height="414" alt="image" src="https://github.com/user-attachments/assets/29252542-107d-4c66-bcba-994c61cfa811" />
-
+https://github.com/user-attachments/assets/8834704d-1cfc-4903-ae88-8d9afd2f9f03
 
 <details>
   <summary>Controles</summary>
