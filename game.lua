@@ -128,8 +128,30 @@ local function read_pointer()
   if cursor_y < 0 then cursor_y = 0 elseif cursor_y > H - 1 then cursor_y = H - 1 end
 end
 
+-- The web runtime does not publish BTN_X. The ids match lupinho's gamepad map.
+local function pad(name, fallback)
+  local value = rawget(_G, name)
+  if type(value) == "number" then return value end
+  return fallback
+end
+
+local PAD_LEFT = pad("LEFT", 4)
+local PAD_RIGHT = pad("RIGHT", 2)
+local PAD_UP = pad("UP", 1)
+local PAD_DOWN = pad("DOWN", 3)
+local PAD_SHOOT = pad("BTN_Z", 7)
+local PAD_THRUST = pad("BTN_X", 6)
+
+local function held(id)
+  return id ~= nil and ui.btn(id)
+end
+
+local function tapped(id)
+  return id ~= nil and ui.btnp(id)
+end
+
 local function confirm()
-  return ui.btnp(BTN_Z) or ui.btnp(BTN_X) or pointer_edge
+  return tapped(PAD_SHOOT) or tapped(PAD_THRUST) or pointer_edge
 end
 
 local function draw_centered(spr, cx, cy)
@@ -391,12 +413,12 @@ local function update_ship()
   last_cursor_x, last_cursor_y = cursor_x, cursor_y
 
   if not aimed then
-    if ui.btn(LEFT) then ship.angle = ship.angle + 0.4 * DT end
-    if ui.btn(RIGHT) then ship.angle = ship.angle - 0.4 * DT end
+    if held(PAD_LEFT) then ship.angle = ship.angle + 0.4 * DT end
+    if held(PAD_RIGHT) then ship.angle = ship.angle - 0.4 * DT end
   end
   ship.angle = ship.angle % 360
 
-  thrust_on = ui.btn(UP) or ui.btn(BTN_X)
+  thrust_on = held(PAD_UP) or held(PAD_THRUST)
   if thrust_on then
     accelerate(ship.angle)
     if ship.thrust_fx == nil or ship.thrust_fx <= 0 then
@@ -408,7 +430,7 @@ local function update_ship()
     ship.thrust_fx = ship.thrust_fx - 1
   end
 
-  if ui.btn(BTN_Z) or pointer_down then shoot() end
+  if held(PAD_SHOOT) or pointer_down then shoot() end
   if ship.load < 200 then ship.load = ship.load + DT end
   if ship.inv > 0 then ship.inv = ship.inv - DT end
 
@@ -527,11 +549,11 @@ local function update_menu()
   end
   last_cursor_x, last_cursor_y = cursor_x, cursor_y
 
-  if ui.btnp(UP) then
+  if tapped(PAD_UP) then
     menu_i = menu_i - 1
     if menu_i < 1 then menu_i = #MENU end
     fx("hover")
-  elseif ui.btnp(DOWN) then
+  elseif tapped(PAD_DOWN) then
     menu_i = menu_i + 1
     if menu_i > #MENU then menu_i = 1 end
     fx("hover")
@@ -610,9 +632,9 @@ local function letter(i)
 end
 
 local function update_initials()
-  if ui.btnp(LEFT) then
+  if tapped(PAD_LEFT) then
     init_n[init_pos] = init_n[init_pos] - 1
-  elseif ui.btnp(RIGHT) then
+  elseif tapped(PAD_RIGHT) then
     init_n[init_pos] = init_n[init_pos] + 1
   elseif confirm() then
     fx("enter")
