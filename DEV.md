@@ -21,9 +21,9 @@ lupinho asteroids.lupi
 | `make game/codec` | pasta aberta em `dist/current` |
 | `make clean` | apaga `asteroids.lupi`, `dist/` e `.build/` |
 
-`make game/codec` copia `game.lua`, `media/img/` e `media/sfx/` para `.build/src` e roda `lupi-codec`. Os `.ogg` são recolocados no release se o codec não os mantiver.
+`make game/codec` copia `game.lua`, os módulos em `src/` e `media/img/` e `media/sfx/` para `.build/src` e roda `lupi-codec`. Os `.ogg` são recolocados no release se o codec não os mantiver.
 
-`game.lua` e `lupi_manifest.txt` entram no zip sem compressão. O lupinho falha ao inflar esses dois quando ficam muito comprimidos.
+Os `.lua` e o `lupi_manifest.txt` entram no zip sem compressão. O lupinho falha ao inflar esses arquivos quando ficam muito comprimidos.
 
 Cada push na `main` publica o cartucho em [asteroids.lupi](https://github.com/humbertodias/lupi-asteroids/releases/latest/download/asteroids.lupi) (`.github/workflows/release.yml`) e a versão web em [humbertodias.github.io/lupi-asteroids](https://humbertodias.github.io/lupi-asteroids/) (`.github/workflows/pages.yml`).
 
@@ -49,7 +49,8 @@ Efeitos em `sfx.fx`, músicas em `sfx.music`. Os arquivos ficam em `media/sfx/` 
 
 ## Arquivos
 
-- `game.lua` — jogo
+- `game.lua` — monta os objetos e chama `update`
+- `src/` — nave, asteroide, tiro, partida e telas, no mesmo desenho do pygame
 - `media/img/` — nave, chama, asteroides, tiro, explosão e ícone de vida
 - `media/sfx/` — sons
 - `lupi-codec/` — converte o estágio em cartucho

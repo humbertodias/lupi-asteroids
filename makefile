@@ -11,15 +11,17 @@ WEB := $(MAKEFILE_DIR).build/webgame
 
 game/codec:
 	rm -rf "$(MAKEFILE_DIR)dist" "$(STAGE)"
-	mkdir -p "$(STAGE)"
+	mkdir -p "$(STAGE)/states" "$(STAGE)/sfx"
 	cp "$(MAKEFILE_DIR)game.lua" "$(STAGE)/game.lua"
+	cp "$(MAKEFILE_DIR)src/"*.lua "$(STAGE)/"
+	cp "$(MAKEFILE_DIR)src/states/"*.lua "$(STAGE)/states/"
 	cp -R "$(MAKEFILE_DIR)media/img" "$(STAGE)/img"
 	mkdir -p "$(STAGE)/sfx"
 	cp "$(MAKEFILE_DIR)media/sfx/"*.ogg "$(STAGE)/sfx/"
 	cd "$(MAKEFILE_DIR)lupi-codec" && lua run.lua "$(STAGE)" "$(MAKEFILE_DIR)dist"
 
 lupi: game/codec
-	mkdir -p "$(CURRENT)/sfx"
+	mkdir -p "$(CURRENT)/sfx" "$(CURRENT)/states"
 	@set -e; \
 	manifest="$(CURRENT)/lupi_manifest.txt"; \
 	for src in "$(MAKEFILE_DIR)media/sfx/"*.ogg; do \
@@ -32,7 +34,7 @@ lupi: game/codec
 	done
 	rm -f "$(LUPI)"
 	cd "$(CURRENT)" && zip -r -X "$(LUPI)" .
-	cd "$(CURRENT)" && zip -0 -X "$(LUPI)" game.lua lupi_manifest.txt
+	cd "$(CURRENT)" && find . \( -name '*.lua' -o -name 'lupi_manifest.txt' \) -print | zip -0 -X "$(LUPI)" -@
 	@echo "Gerado: $(LUPI)"
 
 web: lupi
